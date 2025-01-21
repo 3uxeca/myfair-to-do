@@ -34,3 +34,13 @@ export const todoListState = atom({
   default: [] as Todo[],
   effects_UNSTABLE: [persistAtomEffect],
 });
+
+// TodoTab 타입 정의
+export type TodoTabsKey = 'all' | 'todo' | 'done';
+
+// todoTabState 초기화
+export const todoTabState = atom({
+  key: "todoTabState",
+  default: 'all',
+  effects_UNSTABLE: [persistAtomEffect],
+})
