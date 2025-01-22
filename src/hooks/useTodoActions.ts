@@ -1,9 +1,8 @@
 import { useRecoilState } from "recoil";
-import { todoListState, Todo, todoTabState } from "@/store/atoms";
+import { todoListState, Todo, todoTabState, TodoTabsKey } from "@/store/atoms";
 
 export const useTodoActions = () => {
   const [todoList, setTodoList] = useRecoilState(todoListState);
-  const [todoTab, setTodoTab] = useRecoilState(todoTabState);
 
   const addTodo = (newTodo: Todo) => {
     setTodoList([...todoList, newTodo]);
@@ -21,9 +20,5 @@ export const useTodoActions = () => {
     );
   };
 
-  const selectTodoTab = (tab: string) => {
-    setTodoTab(tab);
-  }
-
-  return { todoList, addTodo, removeTodo, toggleTodo, todoTab, selectTodoTab };
+  return { todoList, addTodo, removeTodo, toggleTodo };
 };

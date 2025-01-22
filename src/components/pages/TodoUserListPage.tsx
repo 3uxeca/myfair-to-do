@@ -1,8 +1,8 @@
 "use client";
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { useTodoActions } from "@/hooks/useTodoActions";
 import TodoList from "../todo/TodoList";
+import TodoInput from "../todo/TodoInput";
 
 const Container = styled.div`
   position: relative;
@@ -25,35 +25,10 @@ const Title = styled.div`
 interface Props {}
 
 const TodoUserListPage = ({}: Props) => {
-  const { todoList, addTodo, removeTodo, toggleTodo } = useTodoActions();
-  const [newTodoText, setNewTodoText] = useState("");
-
-  const handleAddTodo = () => {
-    if (newTodoText.trim()) {
-      addTodo({ id: Date.now(), text: newTodoText, completed: false });
-      setNewTodoText("");
-    }
-  };
-
-  const onKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
-      console.log(event.target, newTodoText);
-      handleAddTodo();  // Enter 키를 감지하고 handleAddTodo 함수 호출
-    }
-    return true;
-  };  
-
   return (
     <Container>
       <Title>To Do List</Title>
-      <input
-        type="text"
-        value={newTodoText}
-        placeholder="할 일을 입력해 주세요"
-        maxLength={20}
-        onChange={(e) => setNewTodoText(e.target.value)}
-        onKeyDown={onKeydown}
-      />           
+      <TodoInput />     
       <TodoList />
     </Container>
   );

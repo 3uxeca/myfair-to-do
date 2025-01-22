@@ -39,7 +39,7 @@ export const todoListState = atom({
 export type TodoTabsKey = 'all' | 'todo' | 'done';
 
 // todoTabState 초기화
-export const todoTabState = atom({
+export const todoTabState = atom<TodoTabsKey>({
   key: "todoTabState",
   default: 'all',
   effects_UNSTABLE: [persistAtomEffect],
