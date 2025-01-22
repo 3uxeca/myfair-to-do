@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { useTodoActions } from '@/hooks/useTodoActions';
-import { Todo, TodoTabsKey } from '@/store/atoms';
 import TodoTabs from './TodoTabs';
 import { useFilteredTodos } from '@/hooks/useFilteredTodos';
 import { useTodoStats } from '@/hooks/useTodoStats';
@@ -11,12 +10,26 @@ import { useTodoTab } from '@/hooks/useTodoTab';
 
 type Props = {}
 
-
+const ListWrapper = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 32px;
+  box-sizing: border-box;
+  box-shadow: 0px 16px 32px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.06);
+`;
 
 const Stats = styled.div`
-  margin-bottom: 16px;
-  font-size: 14px;
-  color: #666;
+  padding: 16px;
+  font-size: 20px;
+  font-weight: 400;
+  color: #000000;
+`;
+
+const ItemList = styled.ul`
+  list-style: none;
+  padding-left: 0;
 `;
 
 const TodoList = (props: Props) => {
@@ -52,7 +65,7 @@ const TodoList = (props: Props) => {
   };  
 
   return (
-    <div>
+    <ListWrapper>
       {/* 탭 버튼 */}
       <TodoTabs selectedTab={todoTab} onChangeTab={selectTodoTab} />
 
@@ -62,7 +75,7 @@ const TodoList = (props: Props) => {
       </Stats>      
       {/* 필터링 된 Todo 리스트 */}
       { isHydrated && (
-        <ul>
+        <ItemList>
           {filteredTodoList.map((todo) => (
             <TodoItem 
               key={todo.id}
@@ -71,9 +84,9 @@ const TodoList = (props: Props) => {
               onRemove={removeTodo}
             />
           ))}
-        </ul>       
+        </ItemList>       
       )}
-    </div>
+    </ListWrapper>
   )
 }
 

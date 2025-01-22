@@ -15,6 +15,7 @@ interface TodoToggleProps {
 }
 
 const TodoItemWrapper = styled.li`
+  padding: 32px 16px;
   -ms-display: flexbox;
   display: flex;
   flex-wrap: wrap;
@@ -22,16 +23,21 @@ const TodoItemWrapper = styled.li`
   justify-content: space-between;
   -webkit-align-items: center;
   align-items: center;     
-
-  .textWrap {
-    -ms-display: flexbox;
-    display: flex;
-    flex-wrap: wrap;
-    -webkit-justify-content: flex-start;
-    justify-content: flex-start;    
-    -webkit-align-items: center;
-    align-items: center;       
-  }
+`;
+const TodoTextWrapper = styled.div`
+  -ms-display: flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-justify-content: flex-start;
+  justify-content: flex-start;    
+  -webkit-align-items: center;
+  align-items: center;   
+`;
+const TodoText = styled.div<TodoToggleProps>`
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 28px;
+  color: ${(props) => props.completed ? '#868686' : '#000000'};;
 `;
 const TodoToggle = styled.div<TodoToggleProps>`
     width: 32px;
@@ -46,12 +52,18 @@ const TodoToggle = styled.div<TodoToggleProps>`
     justify-content: center;        
     -webkit-align-items: center;
     align-items: center;    
+    margin-right: 16px;
+    cursor: pointer;
+`;
+
+const TodoRemove = styled.div`
+  cursor: pointer;
 `;
 
 const TodoItem = ({ todo, onToggle, onRemove }: TodoItemProps) => {
   return (
     <TodoItemWrapper>
-      <div className='textWrap'>
+      <TodoTextWrapper className='textWrap'>
         <TodoToggle
           className='toggle'
           completed={todo.completed}
@@ -59,11 +71,11 @@ const TodoItem = ({ todo, onToggle, onRemove }: TodoItemProps) => {
         >
           <CheckIcon width='20' height='20' fill='#ffffff' />
         </TodoToggle>
-        <div className='text'>{todo.text}</div>
-      </div>
-      <div onClick={() => onRemove(todo.id)}>
-        <RemoveIcon width='24' height='24' fill='#898989' />
-      </div>
+        <TodoText className='text' completed={todo.completed}>{todo.text}</TodoText>
+      </TodoTextWrapper>
+      <TodoRemove onClick={() => onRemove(todo.id)}>
+        <RemoveIcon width='24' height='24' fill='#b9b9b9' />
+      </TodoRemove>
     </TodoItemWrapper>
   )
 }

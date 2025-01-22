@@ -10,23 +10,24 @@ interface TabsProps {
 const TabsWrapper = styled.div`
   display: flex;
   justify-content: center;
-  margin-bottom: 16px;
+  margin-bottom: 32px;
 
-  button {
-    margin: 0 8px;
-    padding: 8px 16px;
+  div {
+    width: 108px;
+    padding: 8px 0;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     border: none;
-    border-radius: 4px;
-    background-color: #f0f0f0;
+    border-radius: 12px;
+    background-color: transparent;
     cursor: pointer;
-    &:hover {
-      background-color: #e0e0e0;
-    }
-    &.active {
-      background-color: #2182f3;
-      color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.hover, &.active {
+      background-color: #ebf4ff;
+      color: #2182f3;
     }
   }
 `;
@@ -37,13 +38,13 @@ const TodoTabs = ({ selectedTab, onChangeTab }: TabsProps) => {
       {
         ['all', 'todo', 'done'].map((tab) => {
           return (
-            <button
+            <div
               key={tab}
               className={selectedTab === tab ? 'active' : ''}
               onClick={() => onChangeTab(tab as TodoTabsKey)}
             >
               { tab === 'all' ? 'All' : tab === 'todo' ? 'To Do' : 'Done' }
-            </button>
+            </div>
           )
         })
       }

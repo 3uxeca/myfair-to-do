@@ -1,9 +1,28 @@
-import { useFilteredTodos } from '@/hooks/useFilteredTodos';
 import { useTodoActions } from '@/hooks/useTodoActions';
 import { useTodoStats } from '@/hooks/useTodoStats';
+import styled from '@emotion/styled';
 import React, { useState } from 'react'
 
 type Props = {}
+
+const Input = styled.input`
+  width: 100%;
+  padding: 32px;
+  margin-bottom: 32px;
+  background-color: #e5e5e5;
+  border: none;
+  border-radius: 24px;
+  font-size: 20px;
+  font-weight: 400;
+  color: #000000;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;  
+  box-sizing: border-box;
+  &::placeholder {
+    color: #898989;
+  }
+`;
 
 const TodoInput = (props: Props) => {
   const { todoList, addTodo } = useTodoActions();
@@ -35,7 +54,7 @@ const TodoInput = (props: Props) => {
     return true;
   };    
   return (
-    <input
+    <Input
       type='text'
       value={newTodoText}
       placeholder='할 일을 입력해 주세요'
