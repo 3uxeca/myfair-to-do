@@ -1,6 +1,7 @@
 import React from "react";
 import LayoutRecoil from "./layout.recoil";
 import localFont from 'next/font/local';
+import GlobalStyles from "@/styles/GlobalStyles";
 
 export const metadata = {
   title: "myfair front pre-course",
@@ -36,6 +37,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={pretendard.className}>
+        <GlobalStyles />
         <LayoutRecoil>{children}</LayoutRecoil>
       </body>
     </html>

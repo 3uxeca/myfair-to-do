@@ -5,7 +5,6 @@ import TodoList from "../todo/TodoList";
 import TodoInput from "../todo/TodoInput";
 
 const Container = styled.div`
-  background-color: #f6f6f6;
   padding: 128px 0;
 `;
 const Wrapper = styled.div`
