@@ -22,11 +22,6 @@ const Stats = styled.div`
 const TodoList = (props: Props) => {
   const { todoList, addTodo, removeTodo, toggleTodo } = useTodoActions();
   const { todoTab, selectTodoTab } = useTodoTab();
-  // 필터링된 리스트
-  const filteredTodoList = useFilteredTodos(todoList, todoTab);
-
-  // 각 상태의 총 개수 계산
-  const { totalCount, todoCount, doneCount } = useTodoStats(todoList);
 
   const [isHydrated, setIsHydrated] = useState(false);
 
@@ -35,10 +30,14 @@ const TodoList = (props: Props) => {
     setIsHydrated(true);
   }, []);  
 
+  // 필터링된 리스트
+  const filteredTodoList = useFilteredTodos(isHydrated ? todoList : [], todoTab);
+  // 각 상태의 총 개수 계산
+  const { totalCount, todoCount, doneCount } = useTodoStats(todoList);  
+  
+  const initialStats = { all: 0, todo: 0, done: 0 };
+  const stats = isHydrated ? { all: totalCount, todo: todoCount, done: doneCount } : initialStats;
 
-  if (!isHydrated) {
-    return null; // Hydration 문제가 발생하지 않도록 클라이언트에서만 렌더링
-  }  
 
   return (
     <div>
@@ -47,19 +46,21 @@ const TodoList = (props: Props) => {
 
       {/* 상태별 총 개수 표시 */}
       <Stats>
-        {`총 ${todoTab === 'all' ? totalCount : todoTab === 'todo' ? todoCount : doneCount}개`}
+        {`총 ${todoTab === 'all' ? stats.all : todoTab === 'todo' ? stats.todo : stats.done}개`}
       </Stats>      
       {/* 필터링 된 Todo 리스트 */}
-      <ul>
-        {filteredTodoList.map((todo) => (
-          <TodoItem 
-            key={todo.id}
-            todo={todo}
-            onToggle={toggleTodo}
-            onRemove={removeTodo}
-          />
-        ))}
-      </ul>       
+      { isHydrated && (
+        <ul>
+          {filteredTodoList.map((todo) => (
+            <TodoItem 
+              key={todo.id}
+              todo={todo}
+              onToggle={toggleTodo}
+              onRemove={removeTodo}
+            />
+          ))}
+        </ul>       
+      )}
     </div>
   )
 }
