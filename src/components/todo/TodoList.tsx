@@ -1,13 +1,13 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import styled from "@emotion/styled";
-import { useTodoActions } from "@/hooks/useTodoActions";
-import { Todo, TodoTabsKey } from "@/store/atoms";
-import TodoTabs from "./TodoTabs";
-import { useFilteredTodos } from "@/hooks/useFilteredTodos";
-import { useTodoStats } from "@/hooks/useTodoStats";
-import TodoItem from "./TodoItem";
-import { useTodoTab } from "@/hooks/useTodoTab";
+'use client';
+import React, { useEffect, useState } from 'react';
+import styled from '@emotion/styled';
+import { useTodoActions } from '@/hooks/useTodoActions';
+import { Todo, TodoTabsKey } from '@/store/atoms';
+import TodoTabs from './TodoTabs';
+import { useFilteredTodos } from '@/hooks/useFilteredTodos';
+import { useTodoStats } from '@/hooks/useTodoStats';
+import TodoItem from './TodoItem';
+import { useTodoTab } from '@/hooks/useTodoTab';
 
 type Props = {}
 
@@ -39,6 +39,18 @@ const TodoList = (props: Props) => {
   const stats = isHydrated ? { all: totalCount, todo: todoCount, done: doneCount } : initialStats;
 
 
+  const handleToggleTodo = (id: number) => {
+    // 조건: completed가 false인 항목이 10개 이상일 경우
+    const togglingTodo = todoList.find((t) => t.id === id);
+    if (togglingTodo && togglingTodo.completed && stats.todo >= 10) {
+      alert('할 일이 너무 많습니다. 완료한 일을 삭제하거나, 할 일을 완료한 후 새로운 할 일을 추가하세요!');
+      return;
+    }
+
+    // 상태 토글
+    toggleTodo(id);
+  };  
+
   return (
     <div>
       {/* 탭 버튼 */}
@@ -55,7 +67,7 @@ const TodoList = (props: Props) => {
             <TodoItem 
               key={todo.id}
               todo={todo}
-              onToggle={toggleTodo}
+              onToggle={handleToggleTodo}
               onRemove={removeTodo}
             />
           ))}

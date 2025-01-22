@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from "@emotion/styled";
+import styled from '@emotion/styled';
 import { Todo } from '@/store/atoms';
 import CheckIcon from '@public/images/Check.svg';
 import RemoveIcon from '@public/images/Close.svg';
