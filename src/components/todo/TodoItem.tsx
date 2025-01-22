@@ -66,6 +66,7 @@ const TodoItem = ({ todo, onToggle, onRemove }: TodoItemProps) => {
       <TodoTextWrapper className='textWrap'>
         <TodoToggle
           className='toggle'
+          data-testid='toggle-todo'
           completed={todo.completed}
           onClick={() => onToggle(todo.id)}
         >
@@ -73,7 +74,7 @@ const TodoItem = ({ todo, onToggle, onRemove }: TodoItemProps) => {
         </TodoToggle>
         <TodoText className='text' completed={todo.completed}>{todo.text}</TodoText>
       </TodoTextWrapper>
-      <TodoRemove onClick={() => onRemove(todo.id)}>
+      <TodoRemove data-testid='remove-todo' onClick={() => onRemove(todo.id)}>
         <RemoveIcon width='24' height='24' fill='#b9b9b9' />
       </TodoRemove>
     </TodoItemWrapper>

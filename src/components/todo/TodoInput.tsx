@@ -26,8 +26,18 @@ const Input = styled.input`
 
 const TodoInput = (props: Props) => {
   const { todoList, addTodo } = useTodoActions();
-  const [newTodoText, setNewTodoText] = useState('');
   const { todoCount } = useTodoStats(todoList);  
+  const [newTodoText, setNewTodoText] = useState('');
+  const [isComposing, setIsComposing] = useState(false);
+  
+  const handleComposition = (e:React.CompositionEvent<HTMLInputElement>) => {
+    if(e.type === 'compositionstart') {
+      setIsComposing(true);
+    }
+    if(e.type === 'compositionend') {
+      setIsComposing(false);
+    }
+  }
 
   const handleAddTodo = () => {
     if (!newTodoText.trim()) {
@@ -47,12 +57,15 @@ const TodoInput = (props: Props) => {
 
   const onKeydown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
-      if (event.nativeEvent.isComposing) return;  // 크롬 브라우저에서 한글을 사용하는 경우에 발생하는 2회 입력 문제 발생 방지
-      handleAddTodo();  // Enter 키를 감지하고 handleAddTodo 함수 호출
+      event.preventDefault();
+      // if (event.nativeEvent.isComposing) return;  // 크롬 브라우저에서 한글을 사용하는 경우에 발생하는 2회 입력 문제 발생 방지
+      if(!isComposing) {
+        handleAddTodo();  // Enter 키를 감지하고 handleAddTodo 함수 호출
+      }
     }
     return true;
   };    
-  
+
   return (
     <Input
       type='text'
@@ -60,6 +73,8 @@ const TodoInput = (props: Props) => {
       placeholder='할 일을 입력해 주세요'
       maxLength={20}
       onChange={(e) => setNewTodoText(e.target.value)}
+      onCompositionStart={handleComposition}
+      onCompositionEnd={() => setIsComposing(false)}
       onKeyDown={onKeydown}
     />   
   )

@@ -40,6 +40,7 @@ const TodoTabs = ({ selectedTab, onChangeTab }: TabsProps) => {
           return (
             <div
               key={tab}
+              role='tab'
               className={selectedTab === tab ? 'active' : ''}
               onClick={() => onChangeTab(tab as TodoTabsKey)}
             >
