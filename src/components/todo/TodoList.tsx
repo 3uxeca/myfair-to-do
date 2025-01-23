@@ -16,8 +16,8 @@ const ListWrapper = styled.div`
   border-radius: 24px;
   padding: 32px;
   box-sizing: border-box;
-  box-shadow: 0px 16px 32px 0px rgba(0, 0, 0, 0.12);
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: 0px 16px 32px 0px rgba(0, 0, 0, 0.12),
+  0px 0px 6px 0px rgba(0, 0, 0, 0.06);
 `;
 
 const Stats = styled.div`
